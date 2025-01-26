@@ -51,7 +51,7 @@ pc.defineParameter(
 pc.defineParameter(
     "diskImage","Disk Image",
     portal.ParameterType.STRING,
-    "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD",
+    "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU24-64-BETA",
     advanced=True,
     longDescription="An image URN or URL that every node will run.")
 pc.defineParameter(
