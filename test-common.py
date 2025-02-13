@@ -224,7 +224,7 @@ try:
         ExtensionOID.AUTHORITY_INFORMATION_ACCESS).value
     url = None
     for d in descriptors:
-        if d.access_method.dotted_string == '2.25.305821105408246119474742976030998643995':
+        if d.access_method.dotted_string in [ '2.25.305821105.408246119.47474297.603099864.3995', '2.25.305821105408246119474742976030998643995' ]:
             url = d.access_location.value
             break
     if url:
