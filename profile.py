@@ -67,8 +67,8 @@ pc.defineParameter(
     advanced=True)
 pc.defineParameter(
     "kubesprayVersion","Kubespray Version",
-    portal.ParameterType.STRING,"release-2.21",
-    longDescription="A tag or commit-ish value; we will run `git checkout <value>`.  The default value is the most recent stable value we have tested.  You should only change this if you need a new feature only available on `master`, or an old feature from a prior release.  We support versions back to release-2.13 only.  Ubuntu 22 supports only release-2.20 and greater.  You will need to use Ubuntu 20 for anything prior to that.",
+    portal.ParameterType.STRING,"release-2.25",
+    longDescription="A tag or commit-ish value; we will run `git checkout <value>`.  The default value is the most recent stable value we have tested.  You should only change this if you need a new feature only available on `master`, or an old feature from a prior release.  We support versions back to release-2.13 only.  Ubuntu 22 supports only release-2.20 and greater.  You will need to use Ubuntu 20 for anything prior to that.  release-2.26 drops support for Ubuntu 18.",
     advanced=True)
 pc.defineParameter(
     "kubesprayUseVirtualenv","Kubespray VirtualEnv",
@@ -109,8 +109,7 @@ pc.defineParameter(
 pc.defineParameter(
     "kubeNetworkPlugin","Kubernetes Network Plugin",
     portal.ParameterType.STRING,"calico",
-    [("calico","Calico"),("flannel","Flannel"),("weave","Weave"),
-     ("canal","Canal")],
+    [("calico","Calico"),("flannel","Flannel"),("weave","Weave")],
     longDescription="Choose the primary kubernetes network plugin.",
     advanced=True)
 pc.defineParameter(
@@ -146,7 +145,7 @@ pc.defineParameter(
     advanced=True)
 pc.defineParameter(
     "kubeFeatureGates","Kubernetes Feature Gate List",
-    portal.ParameterType.STRING,"[EphemeralContainers=true]",
+    portal.ParameterType.STRING,"",
     longDescription="A []-enclosed, comma-separated list of features.  For instance, `[SCTPSupport=true]`.",
     advanced=True)
 pc.defineParameter(
