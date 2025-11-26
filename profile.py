@@ -371,6 +371,7 @@ for i in range(0,params.nodeCount):
         node.addService(RSpec.Execute(shell="sh",command=TBCMD))
     if disableTestbedRootKeys:
         node.installRootKeys(False, False)
+    node.addService(rspec.Execute(shell="bash", command="/local/profile/setup-custom_os.sh"))
     nodes[nodename] = node
     if i == 0:
         k = 0
