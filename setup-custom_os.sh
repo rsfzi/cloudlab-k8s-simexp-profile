@@ -24,6 +24,7 @@ fi
 logtstart "custom_os"
 
 $SUDO apt-get $DPKGOPTS install $APTGETINSTALLOPTS fish ncdu
+$SUDO chsh -s /usr/bin/fish $SWAPPER
 
 logtend "custom_os"
 touch $OURDIR/custom_os-done
