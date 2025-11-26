@@ -23,7 +23,7 @@ fi
 
 logtstart "custom_os"
 
-$SUDO apt-get $DPKGOPTS install $APTGETINSTALLOPTS fish ncdu
+$SUDO apt-get $DPKGOPTS install $APTGETINSTALLOPTS vim fish ncdu htop
 $SUDO chsh -s /usr/bin/fish $SWAPPER
 
 logtend "custom_os"
