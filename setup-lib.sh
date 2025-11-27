@@ -449,6 +449,9 @@ if [ \( -s $OURDIR/manifests.xml \) -a \( ! \( -s $OURDIR/fqdn.map \) \) ]; then
     mv $OURDIR/fqdn.map.tmp $OURDIR/fqdn.map
     cat $OURDIR/fqdn.map | grep -v '^fw-s2[ \t]*' > $OURDIR/fqdn.map.tmp
     mv $OURDIR/fqdn.map.tmp $OURDIR/fqdn.map
+    # Filter out vhosts
+    cat $OURDIR/fqdn.map | grep -v '^vhost' > $OURDIR/fqdn.map.tmp
+    mv $OURDIR/fqdn.map.tmp $OURDIR/fqdn.map
 
     cat $OURDIR/manifests.xml | tr -d '\n' | sed -e 's/<node /\n<node /g'  | sed -n -e "s/^<node [^>]*component_id=['\"]*[a-zA-Z0-9:\+\.]*node+\([^'\"]*\)['\"].*<host name=['\"]\([^'\"]*\)['\"].*$/\1\t\2/p" > $OURDIR/fqdn.physical.map
     # Add a newline if we wrote anything.
@@ -462,6 +465,9 @@ if [ \( -s $OURDIR/manifests.xml \) -a \( ! \( -s $OURDIR/fqdn.map \) \) ]; then
     cat $OURDIR/fqdn.physical.map | grep -v '[ \t]*fw\.' > $OURDIR/fqdn.physical.map.tmp
     mv $OURDIR/fqdn.physical.map.tmp $OURDIR/fqdn.physical.map
     cat $OURDIR/fqdn.physical.map | grep -v '[ \t]*fw-s2\.' > $OURDIR/fqdn.physical.map.tmp
+    mv $OURDIR/fqdn.physical.map.tmp $OURDIR/fqdn.physical.map
+    # Filter out vhosts
+    cat $OURDIR/fqdn.physical.map | grep -v '[ \t]vhost\.' > $OURDIR/fqdn.physical.map.tmp
     mv $OURDIR/fqdn.physical.map.tmp $OURDIR/fqdn.physical.map
 fi
 
