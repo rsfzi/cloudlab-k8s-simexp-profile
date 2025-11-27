@@ -114,6 +114,9 @@ INV=$INVDIR/inventory.ini
 
 echo '[all]' > $INV
 for node in $NODES ; do
+    if echo "$node" | grep -q "^vhost"; then
+        continue
+    fi	
     mgmtip=`getnodeip $node $MGMTLAN`
     dataip=`getnodeip $node $DATALAN`
     if [ "$KUBEACCESSIP" = "mgmt" ]; then
@@ -147,6 +150,9 @@ if [ $KUBEALLWORKERS -eq 1 -o "$NODES" = `echo $NODES | cut -d ' ' -f2` ]; then
 fi
 echo "[$ROLENODE]" >> $INV
 for node in `echo $NODES | cut -d ' ' -f${kubenodecount}-` ; do
+    if echo "$node" | grep -q "^vhost"; then
+        continue
+    fi	
     echo "$node" >> $INV
 done
 cat <<EOF >> $INV

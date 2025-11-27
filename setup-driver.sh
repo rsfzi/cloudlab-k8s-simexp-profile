@@ -6,6 +6,7 @@ set -x
 ln -s /local/logs/setup.log /local/setup/setup-driver.log
 
 ALLNODESCRIPTS="setup-ssh.sh setup-disk-space.sh setup-custom_os.sh"
+VHOSTSCRIPTS=""
 HEADNODESCRIPTS="setup-nfs-server.sh setup-nginx.sh setup-ssl.sh setup-kubespray.sh setup-kubernetes-extra.sh setup-end.sh"
 WORKERNODESCRIPTS="setup-nfs-client.sh"
 
@@ -26,6 +27,16 @@ for script in $ALLNODESCRIPTS ; do
 	exit 1
     fi
 done
+if echo "$HOSTNAME" | grep -q "^vhost"; then
+    for script in $VHOSTSCRIPTS ; do
+        cd $SRC
+        $SRC/$script | tee - /local/logs/${script}.log 2>&1
+        if [ ! $PIPESTATUS -eq 0 ]; then
+            echo "ERROR: ${script} failed; aborting driver!"
+            exit 1
+        fi
+    done
+fi
 if [ "$HOSTNAME" = "node-0" ]; then
     for script in $HEADNODESCRIPTS ; do
 	cd $SRC
@@ -36,14 +47,16 @@ if [ "$HOSTNAME" = "node-0" ]; then
 	fi
     done
 else
-    for script in $WORKERNODESCRIPTS ; do
-	cd $SRC
-	$SRC/$script | tee - /local/logs/${script}.log 2>&1
-	if [ ! $PIPESTATUS -eq 0 ]; then
-	    echo "ERROR: ${script} failed; aborting driver!"
-	    exit 1
-	fi
-    done
+    if ! echo "$HOSTNAME" | grep -q "^vhost"; then
+        for script in $WORKERNODESCRIPTS ; do
+	    cd $SRC
+	    $SRC/$script | tee - /local/logs/${script}.log 2>&1
+	    if [ ! $PIPESTATUS -eq 0 ]; then
+	        echo "ERROR: ${script} failed; aborting driver!"
+	        exit 1
+	    fi
+        done
+    fi
 fi
 
 exit 0
