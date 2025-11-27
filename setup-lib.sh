@@ -407,6 +407,8 @@ if [ ! -f $TOPOMAP ]; then
     mv $TOPOMAP.no.bsnode $TOPOMAP
     cat $TOPOMAP | grep -v '^bslink,' > $TOPOMAP.no.bslink
     mv $TOPOMAP.no.bslink $TOPOMAP
+    cat $TOPOMAP | grep -v '^vhost,' > $TOPOMAP.no.vhost
+    mv $TOPOMAP.no.vhost $TOPOMAP
     if [ -f $TOPOMAP.old ]; then
 	diff -u $TOPOMAP.old $TOPOMAP > $TOPOMAP.diff
 	#
