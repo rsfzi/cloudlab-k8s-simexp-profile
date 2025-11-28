@@ -477,10 +477,12 @@ EOF
     fi
 fi
 
-cat <<EOF >> $HOME/.ansible.cfg
-[defaults]
-log_path=/local/logs/ansible.log
-EOF
+#cat <<EOF >> $HOME/.ansible.cfg
+#[defaults]
+#log_path=/local/logs/ansible.log
+#EOF
+
+export ANSIBLE_LOG_PATH=/local/logs/ansible.log
 
 #
 # Run ansible to build our kubernetes cluster.
