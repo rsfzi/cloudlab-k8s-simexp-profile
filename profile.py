@@ -36,7 +36,7 @@ pc = portal.Context()
 # Define some parameters.
 #
 pc.defineParameter(
-    "nodeCount","Number of Nodes",
+    "nodeCount","Number of worker Nodes",
     portal.ParameterType.INTEGER,3,
     longDescription="Number of nodes in your kubernetes cluster.  Should be either 1, or >= 3.")
 pc.defineParameter(
