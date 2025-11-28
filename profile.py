@@ -370,7 +370,7 @@ nodes = dict({})
 sharedvlans = []
 for i in range(0,allNodesCount):
     nodename = "node-%d" % (i,)
-    if i >= 2:
+    if True: #i >= 2:
         node = RSpec.RawPC(nodename)
         if params.nodeType:
             node.hardware_type = params.nodeType
