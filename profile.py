@@ -40,9 +40,13 @@ pc.defineParameter(
     portal.ParameterType.INTEGER,3,
     longDescription="Number of nodes in your kubernetes cluster.  Should be either 1, or >= 3.")
 pc.defineParameter(
-    "nodeType","Hardware Type",
+    "nodeType","Worker Hardware Type",
     portal.ParameterType.NODETYPE,"",
     longDescription="A specific hardware type to use for each node.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
+pc.defineParameter(
+    "vhostNodeType","vHost Node Hardware Type",
+    portal.ParameterType.NODETYPE,"",
+    longDescription="A specific hardware type to use for vhosts.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
 pc.defineParameter(
     "linkSpeed","Experiment Link Speed",
     portal.ParameterType.INTEGER,0,
@@ -351,6 +355,13 @@ if params.nodeCount > 1:
         # Need this cause LAN() sets the link type to lan, not sure why.
         datalan.type = "vlan"
     datalans.append(datalan)
+
+
+vhost = RSpec.RawPC('vhost-0')
+vhost.disk_image = 'urn:publicid:IDN+emulab.net+image+emulab-ops//XEN416-64-STD'
+if params.vhostNodeType:
+    vhost.hardware_type = params.vhostNodeType
+rspec.addResource(vhost)    
 
 nodes = dict({})
 
