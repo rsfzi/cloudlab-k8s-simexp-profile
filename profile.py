@@ -40,7 +40,7 @@ pc.defineParameter(
     portal.ParameterType.INTEGER,3,
     longDescription="Number of nodes in your kubernetes cluster.  Should be either 1, or >= 3.")
 pc.defineParameter(
-    "nodeType","Worker Hardware Type",
+    "nodeType","Worker Node Hardware Type",
     portal.ParameterType.NODETYPE,"",
     longDescription="A specific hardware type to use for each node.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
 pc.defineParameter(
@@ -345,7 +345,9 @@ rspec.addTour(tour)
 
 datalans = []
 
-if params.nodeCount > 1:
+allNodesCount = 2 + params.nodeCount
+
+if allNodesCount > 1:
     datalan = RSpec.LAN("datalan-1")
     if params.linkSpeed > 0:
         datalan.bandwidth = int(params.linkSpeed)
@@ -366,11 +368,22 @@ rspec.addResource(vhost)
 nodes = dict({})
 
 sharedvlans = []
-for i in range(0,params.nodeCount):
+for i in range(0,allNodesCount):
     nodename = "node-%d" % (i,)
-    node = RSpec.RawPC(nodename)
-    if params.nodeType:
-        node.hardware_type = params.nodeType
+    if i >= 2:
+        node = RSpec.RawPC(nodename)
+        if params.nodeType:
+            node.hardware_type = params.nodeType
+    else:
+        node = RSpec.XenVM(nodename)
+        node.cores = 2
+        #node.ram   = 8192
+        node.ram   = 2048
+        #node.ram   = 4096
+        node.InstantiateOn('vhost-0')
+        #node.exclusive = True
+        node.routable_control_ip = True            
+
     if params.diskImage:
         node.disk_image = params.diskImage
     j = 0
