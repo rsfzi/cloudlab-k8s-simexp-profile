@@ -376,7 +376,7 @@ for i in range(0,allNodesCount):
             node.hardware_type = params.nodeType
     else:
         node = RSpec.XenVM(nodename)
-        node.cores = 2
+        node.cores = 3
         #node.ram   = 8192
         node.ram   = 2048
         #node.ram   = 4096
