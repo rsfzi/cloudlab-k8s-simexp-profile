@@ -383,7 +383,9 @@ for i in range(0,allNodesCount):
         node.InstantiateOn('vhost-0')
         #node.exclusive = True
         node.routable_control_ip = True            
-        node.Attribute('XEN_EXTRAFS','8')
+        #node.Attribute('XEN_EXTRAFS','8')
+        bs = node.Blockstore("bs", "/mydata")
+        bs.size = "8GB"
 
     if params.diskImage:
         node.disk_image = params.diskImage
