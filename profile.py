@@ -47,12 +47,6 @@ pc.defineParameter(
     "vhostNodeType","vHost Node Hardware Type",
     portal.ParameterType.NODETYPE,"",
     longDescription="A specific hardware type to use for vhosts.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
-pc.defineParameter(
-    "linkSpeed","Experiment Link Speed",
-    portal.ParameterType.INTEGER,0,
-    [(0,"Any"),(1000000,"1Gb/s"),(10000000,"10Gb/s"),(25000000,"25Gb/s"),(40000000,"40Gb/s"),(100000000,"100Gb/s")],
-    longDescription="A specific link speed to use for each link/LAN.  All experiment network interfaces will request this speed.")
-pc.defineParameter(
     "multiplexLans", "Multiplex Networks",
     portal.ParameterType.BOOLEAN,False,
     longDescription="Multiplex any networks over physical interfaces using VLANs.  Some physical machines have only a single experiment network interface, so if you want multiple links/LANs, you have to enable multiplexing.  Currently, if you select this option.",
@@ -343,8 +337,6 @@ allNodesCount = 2 + params.nodeCount
 
 if allNodesCount > 1:
     datalan = RSpec.LAN("datalan-1")
-    if params.linkSpeed > 0:
-        datalan.bandwidth = int(params.linkSpeed)
     if params.multiplexLans:
         datalan.link_multiplexing = True
         datalan.best_effort = True
