@@ -53,12 +53,6 @@ pc.defineParameter(
     [(0,"Any"),(1000000,"1Gb/s"),(10000000,"10Gb/s"),(25000000,"25Gb/s"),(40000000,"40Gb/s"),(100000000,"100Gb/s")],
     longDescription="A specific link speed to use for each link/LAN.  All experiment network interfaces will request this speed.")
 pc.defineParameter(
-    "diskImage","Disk Image",
-    portal.ParameterType.STRING,
-    "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD",
-    advanced=True,
-    longDescription="An image URN or URL that every node will run.")
-pc.defineParameter(
     "multiplexLans", "Multiplex Networks",
     portal.ParameterType.BOOLEAN,False,
     longDescription="Multiplex any networks over physical interfaces using VLANs.  Some physical machines have only a single experiment network interface, so if you want multiple links/LANs, you have to enable multiplexing.  Currently, if you select this option.",
@@ -382,9 +376,8 @@ for i in range(0,allNodesCount):
         node.routable_control_ip = True            
         bs = node.Blockstore("bs-%d" % i, "/storage")
         bs.size = "8GB"
+    node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 
-    if params.diskImage:
-        node.disk_image = params.diskImage
     j = 0
     for datalan in datalans:
         iface = node.addInterface("if%d" % (j,))
