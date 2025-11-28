@@ -377,13 +377,9 @@ for i in range(0,allNodesCount):
     else:
         node = RSpec.XenVM(nodename)
         node.cores = 3
-        #node.ram   = 8192
         node.ram   = 2048
-        #node.ram   = 4096
         node.InstantiateOn('vhost-0')
-        #node.exclusive = True
         node.routable_control_ip = True            
-        #node.Attribute('XEN_EXTRAFS','8')
         bs = node.Blockstore("bs-%d" % i, "/storage")
         bs.size = "8GB"
 
