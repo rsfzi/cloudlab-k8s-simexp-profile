@@ -384,7 +384,7 @@ for i in range(0,allNodesCount):
         #node.exclusive = True
         node.routable_control_ip = True            
         #node.Attribute('XEN_EXTRAFS','8')
-        bs = node.Blockstore("bs", "/mydata")
+        bs = node.Blockstore("bs_docker", "/mydata")
         bs.size = "8GB"
 
     if params.diskImage:
