@@ -96,7 +96,7 @@ pc.defineParameter(
     advanced=True)
 pc.defineParameter(
     "dockerOptions","Dockerd Options",
-    portal.ParameterType.STRING,"",
+    portal.ParameterType.STRING,"--insecure-registry",
     longDescription="Extra command-line options to pass to dockerd.  The most common option is probably an --insecure-registry .",
     advanced=True)
 pc.defineParameter(
