@@ -73,6 +73,8 @@ if [ $status -ne 0 ]; then
     echo "Error: ln for containers failed (exit code $status)" >&2
     exit 1
 fi
+echo "unqualified-search-registries = [\"docker.io\"]" \
+    | $SUDO tee -a /etc/containers/registries.conf
 
 logtend "development"
 touch $OURDIR/development-done
