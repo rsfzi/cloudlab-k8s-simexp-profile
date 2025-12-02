@@ -339,7 +339,9 @@ rspec.addTour(tour)
 
 datalans = []
 
-allNodesCount = 2 + params.nodeCount
+headNodeCount = 2
+managementNodeCount = 1
+allNodesCount = headNodeCount + managementNodeCount + params.nodeCount
 
 if allNodesCount > 1:
     datalan = RSpec.LAN("datalan-1")
@@ -377,9 +379,9 @@ rspec.addResource(bhost)
 nodes = dict({})
 
 sharedvlans = []
-for i in range(0,allNodesCount):
+for i in range(0, allNodesCount):
     nodename = "node-%d" % (i,)
-    if i >= 2:
+    if i >= headNodeCount + managementNodeCount:
         node = RSpec.RawPC(nodename)
         if params.nodeType:
             node.hardware_type = params.nodeType
@@ -389,15 +391,14 @@ for i in range(0,allNodesCount):
         node.ram   = 2048
         node.InstantiateOn('vhost-0')
         node.routable_control_ip = True            
-        bs = node.Blockstore("bs-%d" % i, "/storage")
-        bs.size = "8GB"
+        if i < headNodeCount:
+            bs = node.Blockstore("bs-%d" % i, "/storage")
+            bs.size = "8GB"
     node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 
-    j = 0
-    for datalan in datalans:
+    for j, datalan in enumerate(datalans):
         iface = node.addInterface("if%d" % (j,))
         datalan.addInterface(iface)
-        j += 1
     if TBCMD is not None:
         node.addService(RSpec.Execute(shell="sh",command=TBCMD))
     if disableTestbedRootKeys:
