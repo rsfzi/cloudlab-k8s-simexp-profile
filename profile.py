@@ -96,7 +96,7 @@ pc.defineParameter(
     advanced=True)
 pc.defineParameter(
     "dockerOptions","Dockerd Options",
-    portal.ParameterType.STRING,"--insecure-registry",
+    portal.ParameterType.STRING,"",
     longDescription="Extra command-line options to pass to dockerd.  The most common option is probably an --insecure-registry .",
     advanced=True)
 pc.defineParameter(
@@ -367,11 +367,9 @@ bhost.routable_control_ip = True
 bs = bhost.Blockstore("bs-build")
 bs.size = "16GB"
 bhost.disk_image = "urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV"
-j = 0
-for datalan in datalans:
+for j, datalan in enumerate(datalans):
     iface = bhost.addInterface("if%d" % (j,))
     datalan.addInterface(iface)
-    j += 1
 rspec.addResource(bhost)    
 
 nodes = dict({})
