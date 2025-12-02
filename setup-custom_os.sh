@@ -11,7 +11,7 @@ if [ -f $OURDIR/custom_os-done ]; then
 fi
 
 DPKGOPTS=''
-APTGETINSTALLOPTS='-y'
+APTGETINSTALLOPTS='-y --no-install-recommends'
 
 if [ -z "$EUID" ]; then
     EUID=`id -u`
