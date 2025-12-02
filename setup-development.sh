@@ -17,7 +17,8 @@ if [ $status -ne 0 ]; then
     echo "Error: mkdir failed to create $DEV_DIR (exit code $status)" >&2
     exit 1
 fi
-$SUDO chown $SWAPPER:$SWAPPER $DEV_DIR
+SWAPPER_GROUP=$(id -gn "$SWAPPER")
+$SUDO chown $SWAPPER:$SWAPPER_GROUP $DEV_DIR
 status=$?
 if [ $status -ne 0 ]; then
     echo "Error: chown failed (exit code $status)" >&2
