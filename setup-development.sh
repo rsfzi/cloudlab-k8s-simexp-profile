@@ -9,26 +9,49 @@ fi
 
 logtstart "development"
 
-DEV_DIR=$STORAGEDIR/$SWAPPER
+SWAPPER_GROUP=$(id -gn "$SWAPPER")
+BASE_DIR=$STORAGEDIR/$SWAPPER
+DEV_DIR=$BASE_DIR/develop
+MVN_DIR=$BASE_DIR/m2
 
-$SUDO mkdir -p $DEV_DIR
+$SUDO mkdir -p $BASE_DIR
 status=$?
 if [ $status -ne 0 ]; then
-    echo "Error: mkdir failed to create $DEV_DIR (exit code $status)" >&2
+    echo "Error: mkdir failed to create $BASE_DIR (exit code $status)" >&2
     exit 1
 fi
-SWAPPER_GROUP=$(id -gn "$SWAPPER")
-$SUDO chown $SWAPPER:$SWAPPER_GROUP $DEV_DIR
+$SUDO chown $SWAPPER:$SWAPPER_GROUP $BASE_DIR
 status=$?
 if [ $status -ne 0 ]; then
     echo "Error: chown failed (exit code $status)" >&2
+    exit 1
+fi
+
+mkdir -p $DEV_DIR
+status=$?
+if [ $status -ne 0 ]; then
+    echo "Error: mkdir failed to create $DEV_DIR (exit code $status)" >&2
     exit 1
 fi
 cd $HOME
 ln -s $DEV_DIR develop
 status=$?
 if [ $status -ne 0 ]; then
-    echo "Error: ln failed (exit code $status)" >&2
+    echo "Error: ln for develop failed (exit code $status)" >&2
+    exit 1
+fi
+
+mkdir -p $MVN_DIR
+status=$?
+if [ $status -ne 0 ]; then
+    echo "Error: mkdir failed to create $MVN_DIR (exit code $status)" >&2
+    exit 1
+fi
+cd $HOME
+ln -s $MVN_DIR .m2
+status=$?
+if [ $status -ne 0 ]; then
+    echo "Error: ln for .m2 failed (exit code $status)" >&2
     exit 1
 fi
 
