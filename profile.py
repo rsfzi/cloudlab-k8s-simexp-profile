@@ -359,6 +359,21 @@ if params.vhostNodeType:
     vhost.hardware_type = params.vhostNodeType
 rspec.addResource(vhost)    
 
+bhost = RSpec.XenVM("bhost")
+bhost.cores = 4
+bhost.ram   = 4096
+bhost.InstantiateOn('vhost-0')
+bhost.routable_control_ip = True            
+bs = bhost.Blockstore("bs-build")
+bs.size = "16GB"
+bhost.disk_image = "urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV"
+j = 0
+for datalan in datalans:
+    iface = bhost.addInterface("if%d" % (j,))
+    datalan.addInterface(iface)
+    j += 1
+rspec.addResource(bhost)    
+
 nodes = dict({})
 
 sharedvlans = []
@@ -370,7 +385,7 @@ for i in range(0,allNodesCount):
             node.hardware_type = params.nodeType
     else:
         node = RSpec.XenVM(nodename)
-        node.cores = 3
+        node.cores = 2
         node.ram   = 2048
         node.InstantiateOn('vhost-0')
         node.routable_control_ip = True            

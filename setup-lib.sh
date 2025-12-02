@@ -409,6 +409,8 @@ if [ ! -f $TOPOMAP ]; then
     mv $TOPOMAP.no.bslink $TOPOMAP
     cat $TOPOMAP | grep -v '^vhost,' > $TOPOMAP.no.vhost
     mv $TOPOMAP.no.vhost $TOPOMAP
+    cat $TOPOMAP | grep -v '^bhost,' > $TOPOMAP.no.bhost
+    mv $TOPOMAP.no.bhost $TOPOMAP
     if [ -f $TOPOMAP.old ]; then
 	diff -u $TOPOMAP.old $TOPOMAP > $TOPOMAP.diff
 	#
@@ -451,8 +453,10 @@ if [ \( -s $OURDIR/manifests.xml \) -a \( ! \( -s $OURDIR/fqdn.map \) \) ]; then
     mv $OURDIR/fqdn.map.tmp $OURDIR/fqdn.map
     cat $OURDIR/fqdn.map | grep -v '^fw-s2[ \t]*' > $OURDIR/fqdn.map.tmp
     mv $OURDIR/fqdn.map.tmp $OURDIR/fqdn.map
-    # Filter out vhosts
+    # Filter out vhost and bhost
     cat $OURDIR/fqdn.map | grep -v '^vhost' > $OURDIR/fqdn.map.tmp
+    mv $OURDIR/fqdn.map.tmp $OURDIR/fqdn.map
+    cat $OURDIR/fqdn.map | grep -v '^bhost' > $OURDIR/fqdn.map.tmp
     mv $OURDIR/fqdn.map.tmp $OURDIR/fqdn.map
 
     cat $OURDIR/manifests.xml | tr -d '\n' | sed -e 's/<node /\n<node /g'  | sed -n -e "s/^<node [^>]*component_id=['\"]*[a-zA-Z0-9:\+\.]*node+\([^'\"]*\)['\"].*<host name=['\"]\([^'\"]*\)['\"].*$/\1\t\2/p" > $OURDIR/fqdn.physical.map
@@ -468,8 +472,10 @@ if [ \( -s $OURDIR/manifests.xml \) -a \( ! \( -s $OURDIR/fqdn.map \) \) ]; then
     mv $OURDIR/fqdn.physical.map.tmp $OURDIR/fqdn.physical.map
     cat $OURDIR/fqdn.physical.map | grep -v '[ \t]*fw-s2\.' > $OURDIR/fqdn.physical.map.tmp
     mv $OURDIR/fqdn.physical.map.tmp $OURDIR/fqdn.physical.map
-    # Filter out vhosts
+    # Filter out vhost an bhost
     cat $OURDIR/fqdn.physical.map | grep -v '[ \t]vhost\.' > $OURDIR/fqdn.physical.map.tmp
+    mv $OURDIR/fqdn.physical.map.tmp $OURDIR/fqdn.physical.map
+    cat $OURDIR/fqdn.physical.map | grep -v '[ \t]bhost\.' > $OURDIR/fqdn.physical.map.tmp
     mv $OURDIR/fqdn.physical.map.tmp $OURDIR/fqdn.physical.map
 fi
 
