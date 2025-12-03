@@ -23,11 +23,19 @@ kubectl taint nodes node-2 datanode=true:NoExecute --overwrite=true
 
 echo "Taint worker nodes..."
 NON_WORKER_COUNT=3
-#read -r -a arr <<< "$nodes"
 for node in `echo $NODES | cut -d ' ' -f-${NON_WORKER_COUNT}` ; do
-#for node in "${arr[@]: -$NON_WORKER_COUNT}"; do
-    echo "Taint worker node: $node"
-    kubectl taint nodes $node remote=true:NoExecute --overwrite=true
+    echo "1Taint worker node: $node"
+    #kubectl taint nodes $node remote=true:NoExecute --overwrite=true
+done
+read -r -a arr <<< "$nodes"
+for node in "${arr[@]: -2}"; do
+    echo "2Taint worker node: $node"
+done
+for node in "${arr[@]: -$NON_WORKER_COUNT}"; do
+    echo "3Taint worker node: $node"
+done
+for node in "${arr[@]: -${NON_WORKER_COUNT}}"; do
+    echo "4Taint worker node: $node"
 done
 
 echo "Creating rabbitmq service and statefulset..."
