@@ -23,7 +23,9 @@ kubectl taint nodes node-2 datanode=true:NoExecute --overwrite=true
 
 echo "Taint worker nodes..."
 NON_WORKER_COUNT=3
-for node in `echo $NODES | cut -d ' ' -f${NON_WORKER_COUNT}-` ; do
+#read -r -a arr <<< "$nodes"
+for node in `echo $NODES | cut -d ' ' -f-${NON_WORKER_COUNT}` ; do
+#for node in "${arr[@]: -$NON_WORKER_COUNT}"; do
     echo "Taint worker node: $node"
     kubectl taint nodes $node remote=true:NoExecute --overwrite=true
 done
