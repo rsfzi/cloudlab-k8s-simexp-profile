@@ -17,6 +17,17 @@ logtstart "kubernetes-custom"
 $SUDO apt install --no-install-recommends skopeo
 # skopeo --tls-verify=false inspect docker://node-0:5000/simexp_console
 
+echo "Taint data nodes..."
+echo "Taint data node: node-2"
+kubectl taint nodes node-2 datanode=true:NoExecute --overwrite=true
+
+echo "Taint worker nodes..."
+NON_WORKER_COUNT=3
+for node in `echo $NODES | cut -d ' ' -f-$NON_WORKER_COUNT` ; do
+    echo "Taint worker node: $node"
+    kubectl taint nodes $node remote=true:NoExecute --overwrite=true
+done
+
 echo "Creating rabbitmq service and statefulset..."
 #kubectl apply -f $SRC/rabbitmq-namespace.yaml
 status=$?
