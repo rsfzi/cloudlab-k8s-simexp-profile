@@ -339,9 +339,9 @@ rspec.addTour(tour)
 
 datalans = []
 
-headNodeCount = 2
-managementNodeCount = 1
-allNodesCount = headNodeCount + managementNodeCount + params.nodeCount
+headNodeCount = 1
+dataNodeCount = 1
+allNodesCount = headNodeCount + dataNodeCount + params.nodeCount
 
 if allNodesCount > 1:
     datalan = RSpec.LAN("datalan-1")
@@ -381,7 +381,7 @@ nodes = dict({})
 sharedvlans = []
 for i in range(0, allNodesCount):
     nodename = "node-%d" % (i,)
-    if i >= headNodeCount + managementNodeCount:
+    if i >= headNodeCount + dataNodeCount:
         node = RSpec.RawPC(nodename)
         if params.nodeType:
             node.hardware_type = params.nodeType
