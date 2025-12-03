@@ -391,11 +391,8 @@ for i in range(0, allNodesCount):
         node.ram   = 2048
         node.InstantiateOn('vhost-0')
         node.routable_control_ip = True            
-        bs_size = "4GB"
-        if i < headNodeCount:
-            bs_size = "8GB"
         bs = node.Blockstore("bs-%d" % i, "/storage")
-        bs.size = bs_size
+        bs.size = "8GB"
     node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 
     for j, datalan in enumerate(datalans):
