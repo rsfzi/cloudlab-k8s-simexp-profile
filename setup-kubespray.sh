@@ -130,7 +130,7 @@ for node in $NODES ; do
 done
 # The first 2 nodes are kube-master (now kube_control_plane).
 echo "[$ROLEMASTER]" >> $INV
-for node in `echo $NODES | cut -d ' ' -f-2` ; do
+for node in `echo $NODES | cut -d ' ' -f-1` ; do
     echo "$node" >> $INV
 done
 # The first 3 nodes are etcd.
@@ -145,9 +145,9 @@ done
 # The last 2--N nodes are kube-node (now kube_node), unless there is only one node, or
 # if user allows.
 kubenodecount=2
-if [ $KUBEALLWORKERS -eq 1 -o "$NODES" = `echo $NODES | cut -d ' ' -f2` ]; then
-    kubenodecount=1
-fi
+#if [ $KUBEALLWORKERS -eq 1 -o "$NODES" = `echo $NODES | cut -d ' ' -f2` ]; then
+#    kubenodecount=1
+#fi
 echo "[$ROLENODE]" >> $INV
 for node in `echo $NODES | cut -d ' ' -f${kubenodecount}-` ; do
     if echo "$node" | grep -q "^vhost"; then
