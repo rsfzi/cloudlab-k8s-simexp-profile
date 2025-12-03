@@ -17,9 +17,9 @@ logtstart "kubernetes-custom"
 $SUDO apt install --no-install-recommends skopeo
 # skopeo --tls-verify=false inspect docker://node-0:5000/simexp_console
 
-echo "Taint data nodes..."
-echo "Taint data node: node-1"
-kubectl taint nodes node-1 datanode=true:NoExecute --overwrite=true
+#echo "Taint data nodes..."
+#echo "Taint data node: node-1"
+#kubectl taint nodes node-1 datanode=true:NoExecute --overwrite=true
 
 echo "Taint worker nodes..."
 NON_WORKER_COUNT=2
