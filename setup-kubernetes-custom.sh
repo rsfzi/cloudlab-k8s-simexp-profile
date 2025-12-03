@@ -30,19 +30,19 @@ for node in "${arr[@]: -${NON_WORKER_COUNT}}"; do
 done
 
 echo "Creating rabbitmq service and statefulset..."
-#kubectl apply -f $SRC/rabbitmq-namespace.yaml
+kubectl apply -f $SRC/rabbitmq-namespace.yaml
 status=$?
 if [ $status -ne 0 ]; then
     echo "Error: kubectl for rabbitmq-namespace failed (exit code $status)" >&2
     exit 1
 fi
-#kubectl apply -f $SRC/rabbitmq-service.yaml
+kubectl apply -f $SRC/rabbitmq-service.yaml
 status=$?
 if [ $status -ne 0 ]; then
     echo "Error: kubectl for rabbitmq-service failed (exit code $status)" >&2
     exit 1
 fi
-#kubectl apply -f $SRC/vagrant/rabbitmq-statefulset.yaml
+kubectl apply -f $SRC/vagrant/rabbitmq-statefulset.yaml
 status=$?
 if [ $status -ne 0 ]; then
     echo "Error: kubectl for rabbitmq-statefulset failed (exit code $status)" >&2

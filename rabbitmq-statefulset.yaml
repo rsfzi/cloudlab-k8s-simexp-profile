@@ -46,8 +46,8 @@ spec:
       - key: "datanode"
         operator: "Exists"
         effect: "NoExecute"
-      nodeSelector:
-        kubernetes.io/hostname: node01
+      #nodeSelector:
+      #  kubernetes.io/hostname: node01
       #tolerations:
       #- key: "mq"
       #  operator: "Exists"
