@@ -17,6 +17,21 @@ logtstart "kubernetes-custom"
 $SUDO apt install --no-install-recommends skopeo
 # skopeo --tls-verify=false inspect docker://node-0:5000/simexp_console
 
+RABBITMQ_FOLDER=$NFSEXPORTDIR/rabbitmq
+$SUDO mkdir -p $RABBITMQ_FOLDER
+status=$?
+if [ $status -ne 0 ]; then
+    echo "Error: create folder: $RABBITMQ_FOLDER failed (exit code $status)" >&2
+    exit 1
+fi
+
+$SUDO chown $SWAPPER $RABBITMQ_FOLDER
+status=$?
+if [ $status -ne 0 ]; then
+    echo "Error: chown for: $RABBITMQ_FOLDER failed (exit code $status)" >&2
+    exit 1
+fi
+
 #echo "Taint data nodes..."
 #echo "Taint data node: node-1"
 #kubectl taint nodes node-1 datanode=true:NoExecute --overwrite=true

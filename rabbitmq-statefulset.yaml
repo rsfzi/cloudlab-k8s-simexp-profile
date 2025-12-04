@@ -41,7 +41,9 @@ spec:
           name: rabbitmq-data
       volumes:
       - name: rabbitmq-data
-        emptyDir: {}
+        #emptyDir: {}
+        hostPath:
+          path: /nfs/rabbitmq
       tolerations:
       - key: "datanode"
         operator: "Exists"
