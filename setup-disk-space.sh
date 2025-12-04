@@ -150,5 +150,8 @@ for dir in docker kubelet ; do
         | $SUDO tee -a /etc/fstab
 done
 
+$SUDO mkdir -p $STORAGEDIR/rabbitmq
+$SUDO chown $SWAPPER $STORAGEDIR/rabbitmq
+
 logtend "disk-space"
 touch $OURDIR/disk-space-done

@@ -43,7 +43,7 @@ spec:
       - name: rabbitmq-data
         #emptyDir: {}
         hostPath:
-          path: /nfs/rabbitmq
+          path: /storage/rabbitmq
       tolerations:
       - key: "datanode"
         operator: "Exists"
