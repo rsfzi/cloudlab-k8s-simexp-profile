@@ -134,7 +134,7 @@ pc.defineParameter(
     advanced=True)
 pc.defineParameter(
     "kubeDoMetalLB","Kubespray Enable MetalLB",
-    portal.ParameterType.BOOLEAN,True,
+    portal.ParameterType.BOOLEAN,False,
     longDescription="We enable MetalLB by default, so that users can use an \"external\" load balancer service type.  You need at least one public IP address for this option because it doesn't make sense without one.",
     advanced=True)
 pc.defineParameter(
