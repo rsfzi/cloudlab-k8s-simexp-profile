@@ -24,7 +24,7 @@ $SUDO apt install --no-install-recommends skopeo
 echo "Taint worker nodes..."
 NON_WORKER_COUNT=2
 read -r -a arr <<< "$NODES"
-for node in "${arr[@]: -${NON_WORKER_COUNT}}"; do
+for node in "${arr[@]:${NON_WORKER_COUNT}}"; do
     echo "Taint worker node: $node"
     kubectl taint nodes $node remote=true:NoExecute --overwrite=true
 done
