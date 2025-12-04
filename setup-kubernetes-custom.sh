@@ -42,7 +42,7 @@ if [ $status -ne 0 ]; then
     echo "Error: kubectl for rabbitmq-service failed (exit code $status)" >&2
     exit 1
 fi
-kubectl apply -f $SRC/vagrant/rabbitmq-statefulset.yaml
+kubectl apply -f $SRC/rabbitmq-statefulset.yaml
 status=$?
 if [ $status -ne 0 ]; then
     echo "Error: kubectl for rabbitmq-statefulset failed (exit code $status)" >&2
