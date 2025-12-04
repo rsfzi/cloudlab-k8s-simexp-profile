@@ -66,7 +66,7 @@ pc.defineParameter(
     advanced=True)
 pc.defineParameter(
     "kubesprayVersion","Kubespray Version",
-    portal.ParameterType.STRING,"release-2.26",
+    portal.ParameterType.STRING,"release-2.27.1",
     longDescription="A tag or commit-ish value; we will run `git checkout <value>`.  The default value is the most recent stable value we have tested.  You should only change this if you need a new feature only available on `master`, or an old feature from a prior release.  We support versions back to release-2.13 only.  Ubuntu 22 supports only release-2.20 and greater.  You will need to use Ubuntu 20 for anything prior to that.  release-2.26 drops support for Ubuntu 18.",
     advanced=True)
 pc.defineParameter(
@@ -284,14 +284,6 @@ pc.verifyParameters()
 #
 kubeInstructions = \
   """
-## Waiting for your Experiment to Complete Setup
-
-Once the initial phase of experiment creation completes (disk load and node configuration), the profile's setup scripts begin the complex process of installing software according to profile parameters, so you must wait to access software resources until they complete.  The Kubernetes dashboard link will not be available immediately.  There are multiple ways to determine if the scripts have finished.
-  - First, you can watch the experiment status page: the overall State will say \"booted (startup services are still running)\" to indicate that the nodes have booted up, but the setup scripts are still running.
-  - Second, the Topology View will show you, for each node, the status of the startup command on each node (the startup command kicks off the setup scripts on each node).  Once the startup command has finished on each node, the overall State field will change to \"ready\".  If any of the startup scripts fail, you can mouse over the failed node in the topology viewer for the status code.
-  - Third, the profile configuration scripts send emails: one to notify you that profile setup has started, and another notify you that setup has completed.
-  - Finally, you can view [the profile setup script logfiles](http://{host-node-0}:7999/) as the setup scripts run.  Use the `admin` username and the automatically-generated random password `{password-adminPass}` .  This URL is available very quickly after profile setup scripts begin work.
-
 ## Kubernetes credentials and dashboard access
 
 Once the profile's scripts have finished configuring software in your experiment, you'll be able to visit [the Kubernetes Dashboard WWW interface](https://{host-node-0}:8080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login) (approx. 10-15 minutes for the Kubernetes portion alone).
