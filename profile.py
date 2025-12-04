@@ -51,7 +51,8 @@ pc.defineParameter(
     "linkSpeed","Experiment Link Speed",
     portal.ParameterType.INTEGER,0,
     [(0,"Any"),(1000000,"1Gb/s"),(10000000,"10Gb/s"),(25000000,"25Gb/s"),(40000000,"40Gb/s"),(100000000,"100Gb/s")],
-    longDescription="A specific link speed to use for each link/LAN.  All experiment network interfaces will request this speed.")
+    longDescription="A specific link speed to use for each link/LAN.  All experiment network interfaces will request this speed.",
+    advanced=True)
 pc.defineParameter(
     "multiplexLans", "Multiplex Networks",
     portal.ParameterType.BOOLEAN,False,
@@ -65,7 +66,7 @@ pc.defineParameter(
     advanced=True)
 pc.defineParameter(
     "kubesprayVersion","Kubespray Version",
-    portal.ParameterType.STRING,"release-2.25",
+    portal.ParameterType.STRING,"release-2.26",
     longDescription="A tag or commit-ish value; we will run `git checkout <value>`.  The default value is the most recent stable value we have tested.  You should only change this if you need a new feature only available on `master`, or an old feature from a prior release.  We support versions back to release-2.13 only.  Ubuntu 22 supports only release-2.20 and greater.  You will need to use Ubuntu 20 for anything prior to that.  release-2.26 drops support for Ubuntu 18.",
     advanced=True)
 pc.defineParameter(
