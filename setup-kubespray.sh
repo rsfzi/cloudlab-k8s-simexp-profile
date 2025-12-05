@@ -477,7 +477,7 @@ EOF
     fi
 fi
 
-#export ANSIBLE_LOG_PATH=/local/logs/ansible.log
+export ANSIBLE_LOG_PATH=/local/logs/ansible.log
 
 #
 # Run ansible to build our kubernetes cluster.
