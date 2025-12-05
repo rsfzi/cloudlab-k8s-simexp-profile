@@ -49,6 +49,13 @@ if [ $status -ne 0 ]; then
     exit 1
 fi
 
+kubectl apply -f $SRC/simexp-role.yaml
+status=$?
+if [ $status -ne 0 ]; then
+    echo "Error: kubectl for simexp-role failed (exit code $status)" >&2
+    exit 1
+fi
+
 logtend "kubernetes-custom"
 touch $OURDIR/kubernetes-custom-done
 exit 0
