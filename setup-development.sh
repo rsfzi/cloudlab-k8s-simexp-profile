@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Grab our libs
+export SRC=`dirname $0`
 . "`dirname $0`/setup-lib.sh"
 
 if [ -f $OURDIR/development-done ]; then
@@ -73,8 +74,12 @@ if [ $status -ne 0 ]; then
     echo "Error: ln for containers failed (exit code $status)" >&2
     exit 1
 fi
+
+# Allow podman to use docker.io
 echo "unqualified-search-registries = [\"docker.io\"]" \
     | $SUDO tee -a /etc/containers/registries.conf
+
+$SUDO cp $SRC/setup-build-development.sh /usr/local/bin
 
 logtend "development"
 touch $OURDIR/development-done
