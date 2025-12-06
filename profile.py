@@ -176,7 +176,7 @@ pc.defineParameter(
     longDescription="Choose where you want the SSL certificates deployed.  Currently the only option is for them to be configured as part of the web proxy to the dashboard.")
 pc.defineParameter(
     "doNFS","Enable NFS",
-    portal.ParameterType.BOOLEAN,True,
+    portal.ParameterType.BOOLEAN,False,
     longDescription="We enable NFS by default, to be used by persistent volumes in Kubernetes services.",
     advanced=True)
 pc.defineParameter(

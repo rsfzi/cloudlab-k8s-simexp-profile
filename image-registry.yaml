@@ -27,19 +27,19 @@ metadata:
 #  #        values:
 #  #        - node01
 #---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: registry-pvc
-  namespace: images
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: local-storage
-  resources:
-    requests:
-      storage: 1Gi
----
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: registry-pvc
+#  namespace: images
+#spec:
+#  accessModes:
+#    - ReadWriteMany
+#  storageClassName: local-storage
+#  resources:
+#    requests:
+#      storage: 1Gi
+#---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -66,8 +66,8 @@ spec:
           mountPath: "/var/lib/registry"
       volumes:
       - name: registry-storage
-      hostPath:
-        path: /var/lib/registry
+        hostPath:
+          path: /storage/registry
       #  persistentVolumeClaim:
       #  claimName: registry-pvc
       #tolerations:

@@ -14,8 +14,7 @@ fi
 logtstart "kubernetes-custom"
 
 
-$SUDO apt install --no-install-recommends skopeo
-# skopeo --tls-verify=false inspect docker://node-0:5000/simexp_console
+$SUDO apt install --no-install-recommends podman
 
 #echo "Taint data nodes..."
 #echo "Taint data node: node-1"

@@ -1,7 +1,10 @@
 #!/bin/bash
 
+set -x
+
 export SRC=`dirname $0`
-. "$BINDIR/setup-lib.sh"
+cd $SRC
+. $SRC/setup-lib.sh
 
 if [ -f $OURDIR/image-registry-done ]; then
     exit 0
@@ -10,6 +13,18 @@ fi
 logtstart "image-registry"
 
 
+$SUDO mkdir -p $STORAGEDIR/registry
+status=$?
+if [ $status -ne 0 ]; then
+    echo "Error: mkdir $STORAGEDIR/registry failed (exit code $status)" >&2
+    exit 1
+fi
+
+echo src=$SRC
+pwd
+ls -l $SRC/*.yaml
+
+cd $SRC
 kubectl apply -f $SRC/image-registry.yaml
 status=$?
 if [ $status -ne 0 ]; then
