@@ -2,6 +2,11 @@
 
 set -x
 
+SUDO=
+if [ ! $EUID -eq 0 ] ; then
+    SUDO=sudo
+fi
+
 mkdir -p $HOME/develop/palladio/runtime-SimExp
 mkdir -p $HOME/develop/palladio/simexp-ea
 mkdir -p $HOME/develop/kubernetes

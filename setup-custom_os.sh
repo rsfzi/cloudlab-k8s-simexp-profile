@@ -27,5 +27,13 @@ $SUDO apt-get $DPKGOPTS install $APTGETINSTALLOPTS vim fish ncdu htop
 $SUDO apt-get $DPKGOPTS install $APTGETINSTALLOPTS podman uidmap
 $SUDO chsh -s /usr/bin/fish $SWAPPER
 
+PODMAN_FOLDER=/storage/podman/$SWAPPER
+$SUDO mkdir -p $PODMAN_FOLDER
+$SUDO chown rsfzi $PODMAN_FOLDER
+
+mkdir -p /users/rsfzi/$SWAPPER/.local/share
+cd /users/rsfzi/$SWAPPER/.local/share
+ln -s $PODMAN_FOLDER containers
+
 logtend "custom_os"
 touch $OURDIR/custom_os-done
