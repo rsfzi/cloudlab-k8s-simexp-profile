@@ -10,8 +10,6 @@ fi
 
 logtstart "development"
 
-maybe_install_packages podman
-
 SWAPPER_GROUP=$(id -gn "$SWAPPER")
 BASE_DIR=$STORAGEDIR/$SWAPPER
 DEV_DIR=$BASE_DIR/develop

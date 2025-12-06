@@ -1,8 +1,6 @@
 #!/bin/bash
 
-set -x
-
-export SRC=`dirname $0`
+export SRC=$(realpath `dirname $0`)
 cd $SRC
 . $SRC/setup-lib.sh
 
@@ -11,7 +9,6 @@ if [ -f $OURDIR/image-registry-done ]; then
 fi
 
 logtstart "image-registry"
-
 
 $SUDO mkdir -p $STORAGEDIR/registry
 status=$?
@@ -40,8 +37,9 @@ while kubectl get pods -A -l app=registry | awk 'split($3, a, "/") && a[1] != a[
   echo 'image-registry is ready.'
 
 echo 'login to image-registry'
+REGISTRY_URL=image-registry.images.svc.cluster.local:5000
 # https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-podman login -u u -p p node-0:30500 --tls-verify=false
+podman login -u u -p p $REGISTRY_URL --tls-verify=false
 status=$?
 if [ $status -ne 0 ]; then
     echo "Error: podman login failed (exit code $status)" >&2
@@ -55,7 +53,7 @@ if [ $status -ne 0 ]; then
     exit 1
 fi
 #cat $XDG_RUNTIME_DIR/containers/auth.json
-podman logout node-0:30500
+podman logout $REGISTRY_URL
 echo "image registry prepared"
 
 logtend "image-registry"
