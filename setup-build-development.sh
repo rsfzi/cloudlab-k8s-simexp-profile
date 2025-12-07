@@ -18,6 +18,7 @@ cd $HOME/develop/kubernetes
 git clone $BRANCH git@github.com:rsfzi/Simexp-Kubernetes-Worker.git
 
 BRANCH="-b ma_bruening-ea-integration_strategy-fix"
+cd $HOME/develop/palladio/simexp-ea
 git clone $BRANCH git@github.com:PalladioSimulator/Palladio-Addons-EnvironmentalDynamics
 
 
