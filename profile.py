@@ -360,7 +360,7 @@ bhost.ram   = 4096
 bhost.InstantiateOn('vhost-0')
 bhost.routable_control_ip = True            
 bs = bhost.Blockstore("bs-build")
-bs.size = "16GB"
+bs.size = "25GB"
 bhost.disk_image = "urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV"
 if TBCMD is not None:
     bhost.addService(RSpec.Execute(shell="sh",command=TBCMD))
