@@ -11,13 +11,13 @@ mkdir -p $HOME/develop/palladio/runtime-SimExp
 mkdir -p $HOME/develop/palladio/simexp-ea
 mkdir -p $HOME/develop/kubernetes
 
-BRANCH=-b ma_bruening-ea-integration
+BRANCH="-b ma_bruening-ea-integration"
 cd $HOME/develop/palladio/simexp-ea
 git clone $BRANCH git@github.com:PalladioSimulator/Palladio-Analyzer-SimExp
 cd $HOME/develop/kubernetes
 git clone $BRANCH git@github.com:rsfzi/Simexp-Kubernetes-Worker.git
 
-BRANCH=-b ma_bruening-ea-integration_strategy-fix
+BRANCH="-b ma_bruening-ea-integration_strategy-fix"
 git clone $BRANCH git@github.com:PalladioSimulator/Palladio-Addons-EnvironmentalDynamics
 
 
