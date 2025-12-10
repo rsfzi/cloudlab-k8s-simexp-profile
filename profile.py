@@ -14,6 +14,7 @@ import os.path
 import sys
 
 TBCMD = "sudo mkdir -p /local/setup && sudo chown `geni-get user_urn | cut -f4 -d+` /local/setup && sudo -u `geni-get user_urn | cut -f4 -d+` -Hi /bin/bash -c '/local/repository/setup-driver.sh >/local/logs/setup.log 2>&1'"
+TBCMD = None
 
 #
 # For now, disable the testbed's root ssh key service until we can remove ours.
@@ -360,29 +361,31 @@ for j, datalan in enumerate(datalans):
     datalan.addInterface(iface)
 rspec.addResource(vhost)    
 
-bhost = RSpec.XenVM("bhost")
-bhost.cores = 4
-bhost.ram   = 4096
-bhost.InstantiateOn('vhost-0')
-bhost.routable_control_ip = True            
-bs = bhost.Blockstore("bs-build")
-bs.size = "25GB"
-bhost.disk_image = "urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV"
-if TBCMD is not None:
-    bhost.addService(RSpec.Execute(shell="sh",command=TBCMD))
-for j, datalan in enumerate(datalans):
-    iface = bhost.addInterface("if%d" % (j,))
-    iface.addAddress(RSpec.IPv4Address("192.168.1." + str(ip_counter + 1), "255.255.255.0"))
-    ip_counter = ip_counter + 1
-    datalan.addInterface(iface)
-rspec.addResource(bhost)    
+#bhost = RSpec.XenVM("bhost")
+#bhost.cores = 4
+#bhost.ram   = 4096
+#bhost.InstantiateOn('vhost-0')
+#bhost.routable_control_ip = True            
+#bs = bhost.Blockstore("bs-build")
+#bs.size = "25GB"
+#bhost.disk_image = "urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV"
+#if TBCMD is not None:
+#    bhost.addService(RSpec.Execute(shell="sh",command=TBCMD))
+#for j, datalan in enumerate(datalans):
+#    iface = bhost.addInterface("if%d" % (j,))
+#    iface.addAddress(RSpec.IPv4Address("192.168.1." + str(ip_counter + 1), "255.255.255.0"))
+#    ip_counter = ip_counter + 1
+#    datalan.addInterface(iface)
+#rspec.addResource(bhost)    
 
 nodes = dict({})
 
 sharedvlans = []
+# ToDo: Remove
 for i in range(0, allNodesCount):
     nodename = "node-%d" % (i,)
-    if i >= headNodeCount + dataNodeCount:
+    #if i >= headNodeCount + dataNodeCount:
+    if True:
         node = RSpec.RawPC(nodename)
         if params.nodeType:
             node.hardware_type = params.nodeType
