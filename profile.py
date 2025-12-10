@@ -382,7 +382,7 @@ for i in range(0, allNodesCount):
         if params.nodeType:
             node.hardware_type = params.nodeType
     else:
-        node = RSpec.XenVM(nodename)
+        node = IG.XenVM(nodename)
         node.cores = 2
         node.ram   = 2048
         node.InstantiateOn('vhost-0')
