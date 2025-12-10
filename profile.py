@@ -353,6 +353,11 @@ vhost = RSpec.RawPC('vhost-0')
 vhost.disk_image = 'urn:publicid:IDN+emulab.net+image+emulab-ops//XEN416-64-STD'
 if params.vhostNodeType:
     vhost.hardware_type = params.vhostNodeType
+for j, datalan in enumerate(datalans):
+    iface = vhost.addInterface("if%d" % (j,))
+    iface.addAddress(RSpec.IPv4Address("192.168.1." + str(ip_counter + 1), "255.255.255.0"))
+    ip_counter = ip_counter + 1
+    datalan.addInterface(iface)
 rspec.addResource(vhost)    
 
 bhost = RSpec.XenVM("bhost")
