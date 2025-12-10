@@ -333,8 +333,10 @@ tourInstructions = kubeInstructions
 
 datalans = []
 
-headNodeCount = 1
-dataNodeCount = 1
+#headNodeCount = 1
+#dataNodeCount = 1
+headNodeCount = 0
+dataNodeCount = 0
 allNodesCount = headNodeCount + dataNodeCount + params.nodeCount
 
 if allNodesCount > 1:
