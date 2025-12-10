@@ -51,8 +51,8 @@ pc.defineParameter(
     "linkSpeed","Experiment Link Speed",
     portal.ParameterType.INTEGER,0,
     [(0,"Any"),(1000000,"1Gb/s"),(10000000,"10Gb/s"),(25000000,"25Gb/s"),(40000000,"40Gb/s"),(100000000,"100Gb/s")],
-    longDescription="A specific link speed to use for each link/LAN.  All experiment network interfaces will request this speed.",
-    advanced=True)
+    longDescription="A specific link speed to use for each link/LAN.  All experiment network interfaces will request this speed."
+    )
 pc.defineParameter(
     "multiplexLans", "Multiplex Networks",
     portal.ParameterType.BOOLEAN,False,
@@ -347,6 +347,7 @@ if allNodesCount > 1:
         datalan.type = "vlan"
     datalans.append(datalan)
 
+ip_counter = 0;
 
 vhost = RSpec.RawPC('vhost-0')
 vhost.disk_image = 'urn:publicid:IDN+emulab.net+image+emulab-ops//XEN416-64-STD'
@@ -366,6 +367,8 @@ if TBCMD is not None:
     bhost.addService(RSpec.Execute(shell="sh",command=TBCMD))
 for j, datalan in enumerate(datalans):
     iface = bhost.addInterface("if%d" % (j,))
+    iface.addAddress(pg.IPv4Address("192.168.1." + str(ip_counter + 1), "255.255.255.0"))
+    ip_counter = ip_counter + 1
     datalan.addInterface(iface)
 rspec.addResource(bhost)    
 
@@ -390,6 +393,8 @@ for i in range(0, allNodesCount):
 
     for j, datalan in enumerate(datalans):
         iface = node.addInterface("if%d" % (j,))
+        iface.addAddress(pg.IPv4Address("192.168.1." + str(ip_counter + 1), "255.255.255.0"))
+        ip_counter = ip_counter + 1
         datalan.addInterface(iface)
     if TBCMD is not None:
         node.addService(RSpec.Execute(shell="sh",command=TBCMD))
