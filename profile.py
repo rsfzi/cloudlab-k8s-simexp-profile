@@ -325,10 +325,10 @@ tourInstructions = kubeInstructions
 #
 # Setup the Tour info with the above description and instructions.
 #  
-tour = IG.Tour()
-tour.Description(IG.Tour.TEXT,tourDescription)
-tour.Instructions(IG.Tour.MARKDOWN,tourInstructions)
-rspec.addTour(tour)
+#tour = IG.Tour()
+#tour.Description(IG.Tour.TEXT,tourDescription)
+#tour.Instructions(IG.Tour.MARKDOWN,tourInstructions)
+#rspec.addTour(tour)
 
 datalans = []
 
