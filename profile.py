@@ -367,7 +367,7 @@ if TBCMD is not None:
     bhost.addService(RSpec.Execute(shell="sh",command=TBCMD))
 for j, datalan in enumerate(datalans):
     iface = bhost.addInterface("if%d" % (j,))
-    iface.addAddress(pg.IPv4Address("192.168.1." + str(ip_counter + 1), "255.255.255.0"))
+    iface.addAddress(pc.IPv4Address("192.168.1." + str(ip_counter + 1), "255.255.255.0"))
     ip_counter = ip_counter + 1
     datalan.addInterface(iface)
 rspec.addResource(bhost)    
@@ -393,7 +393,7 @@ for i in range(0, allNodesCount):
 
     for j, datalan in enumerate(datalans):
         iface = node.addInterface("if%d" % (j,))
-        iface.addAddress(pg.IPv4Address("192.168.1." + str(ip_counter + 1), "255.255.255.0"))
+        iface.addAddress(pc.IPv4Address("192.168.1." + str(ip_counter + 1), "255.255.255.0"))
         ip_counter = ip_counter + 1
         datalan.addInterface(iface)
     if TBCMD is not None:
