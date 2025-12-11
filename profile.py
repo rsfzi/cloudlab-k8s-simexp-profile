@@ -55,7 +55,7 @@ pc.defineParameter(
     advanced=True)
 pc.defineParameter(
     "buildDiskImage", "Disk iamge of build host",
-    portal.ParameterType.String,"urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV",
+    portal.ParameterType.IMAGE,"urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV",
     longDescription="Disk image of the build node.",
     advanced=True)
 pc.defineParameter(
