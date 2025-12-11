@@ -54,6 +54,11 @@ pc.defineParameter(
     longDescription="A specific link speed to use for each link/LAN.  All experiment network interfaces will request this speed.",
     advanced=True)
 pc.defineParameter(
+    "buildDiskImage", "Disk iamge of build host",
+    portal.ParameterType.String,"urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV",
+    longDescription="Disk image of the build node.",
+    advanced=True)
+pc.defineParameter(
     "multiplexLans", "Multiplex Networks",
     portal.ParameterType.BOOLEAN,False,
     longDescription="Multiplex any networks over physical interfaces using VLANs.  Some physical machines have only a single experiment network interface, so if you want multiple links/LANs, you have to enable multiplexing.  Currently, if you select this option.",
@@ -361,7 +366,7 @@ bhost.InstantiateOn('vhost-0')
 bhost.routable_control_ip = True            
 bs = bhost.Blockstore("bs-build")
 bs.size = "25GB"
-bhost.disk_image = "urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV"
+bhost.disk_image = params.buildDiskImage
 if TBCMD is not None:
     bhost.addService(RSpec.Execute(shell="sh",command=TBCMD))
 for j, datalan in enumerate(datalans):
