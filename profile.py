@@ -362,8 +362,7 @@ rspec.addResource(vhost)
 
 bhost = RSpec.XenVM("bhost")
 bhost.cores = 4
-#bhost.ram   = 4096
-bhost.ram   = 2048
+bhost.ram   = 4096
 bhost.InstantiateOn('vhost-0')
 bhost.exclusive = True
 bhost.routable_control_ip = True            
