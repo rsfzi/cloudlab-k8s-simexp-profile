@@ -354,6 +354,7 @@ if allNodesCount > 1:
 
 
 vhost = RSpec.RawPC('vhost-0')
+vhost.exclusive = True
 vhost.disk_image = 'urn:publicid:IDN+emulab.net+image+emulab-ops//XEN416-64-STD'
 if params.vhostNodeType:
     vhost.hardware_type = params.vhostNodeType
