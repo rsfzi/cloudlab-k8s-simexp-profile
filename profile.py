@@ -361,7 +361,8 @@ rspec.addResource(vhost)
 
 bhost = RSpec.XenVM("bhost")
 bhost.cores = 4
-bhost.ram   = 4096
+#bhost.ram   = 4096
+bhost.ram   = 2048
 bhost.InstantiateOn('vhost-0')
 bhost.routable_control_ip = True            
 bs = bhost.Blockstore("bs-build")
