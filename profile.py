@@ -36,15 +36,15 @@ pc = portal.Context()
 # Define some parameters.
 #
 pc.defineParameter(
-    "nodeCount","Number of worker Nodes",
+    "nodeCount","Number of worker nodes",
     portal.ParameterType.INTEGER,3,
     longDescription="Number of nodes in your kubernetes cluster.  Should be either 1, or >= 3.")
 pc.defineParameter(
-    "nodeType","Worker Node Hardware Type",
+    "nodeType","Worker node hardware type",
     portal.ParameterType.NODETYPE,"",
     longDescription="A specific hardware type to use for each node.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
 pc.defineParameter(
-    "vhostNodeType","vHost Node Hardware Type",
+    "vhostNodeType","vHost node hardware type",
     portal.ParameterType.NODETYPE,"",
     longDescription="A specific hardware type to use for vhosts.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
 pc.defineParameter(
@@ -57,6 +57,11 @@ pc.defineParameter(
     "buildDiskImage", "Disk iamge of build host",
     portal.ParameterType.STRING,"urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV",
     longDescription="Disk image of the build node.",
+    advanced=True)
+pc.defineParameter(
+    "buildCpuCount", "CPU count on build host",
+    portal.ParameterType.INTEGER,8,
+    longDescription="CPU count on build node.",
     advanced=True)
 pc.defineParameter(
     "multiplexLans", "Multiplex Networks",
@@ -361,7 +366,7 @@ if params.vhostNodeType:
 rspec.addResource(vhost)    
 
 bhost = RSpec.XenVM("bhost")
-bhost.cores = 4
+bhost.cores = params.buildCpuCount
 bhost.ram   = 4096
 bhost.InstantiateOn('vhost-0')
 bhost.exclusive = True
