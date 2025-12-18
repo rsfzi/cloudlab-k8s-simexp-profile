@@ -64,6 +64,11 @@ pc.defineParameter(
     longDescription="CPU count on build node.",
     advanced=True)
 pc.defineParameter(
+    "buildMemorySize", "Memory size in MB of build host",
+    portal.ParameterType.INTEGER,6114,
+    longDescription="Memory size of build node.",
+    advanced=True)
+pc.defineParameter(
     "multiplexLans", "Multiplex Networks",
     portal.ParameterType.BOOLEAN,False,
     longDescription="Multiplex any networks over physical interfaces using VLANs.  Some physical machines have only a single experiment network interface, so if you want multiple links/LANs, you have to enable multiplexing.  Currently, if you select this option.",
@@ -367,7 +372,7 @@ rspec.addResource(vhost)
 
 bhost = RSpec.XenVM("bhost")
 bhost.cores = params.buildCpuCount
-bhost.ram   = 4096
+bhost.ram   = params.buildMemorySize
 bhost.InstantiateOn('vhost-0')
 bhost.exclusive = True
 bhost.routable_control_ip = True            
