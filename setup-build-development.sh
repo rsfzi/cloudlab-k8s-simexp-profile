@@ -27,3 +27,5 @@ ln -s ../simexp-ea/Palladio-Addons-EnvironmentalDynamics/examples/org.palladiosi
 
 cd $HOME/develop/kubernetes/Simexp-Kubernetes-Worker
 ln -s /users/rsfzi/develop/palladio/simexp-ea/Palladio-Analyzer-SimExp/products/org.palladiosimulator.simexp.product.console/target/products/org.palladiosimulator.simexp.product.console-linux.gtk.x86_64.zip
+
+host www.prismmodelchecker.org
