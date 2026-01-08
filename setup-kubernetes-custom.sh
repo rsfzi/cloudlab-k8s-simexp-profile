@@ -20,9 +20,15 @@ $SUDO apt install --no-install-recommends podman
 #echo "Taint data node: node-1"
 #kubectl taint nodes node-1 datanode=true:NoExecute --overwrite=true
 
-echo "Taint worker nodes..."
+echo "Label  worker nodes..."
 NON_WORKER_COUNT=2
 read -r -a arr <<< "$NODES"
+for node in "${arr[@]:${NON_WORKER_COUNT}}"; do
+    echo "Label worker node: $node"
+    kubectl label node $node node-role.kubernetes.io/worker=worker
+done
+
+echo "Taint worker nodes..."
 for node in "${arr[@]:${NON_WORKER_COUNT}}"; do
     echo "Taint worker node: $node"
     kubectl taint nodes $node remote=true:NoExecute --overwrite=true
