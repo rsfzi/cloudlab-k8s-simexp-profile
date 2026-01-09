@@ -23,7 +23,7 @@ fi
 
 logtstart "custom_os"
 
-$SUDO apt-get $DPKGOPTS install $APTGETINSTALLOPTS vim fish ncdu htop 
+$SUDO apt-get $DPKGOPTS install $APTGETINSTALLOPTS vim fish ncdu htop bat
 $SUDO apt-get $DPKGOPTS install $APTGETINSTALLOPTS podman uidmap
 $SUDO chsh -s /usr/bin/fish $SWAPPER
 
