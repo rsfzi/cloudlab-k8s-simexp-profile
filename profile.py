@@ -53,8 +53,8 @@ pc.defineParameter(
     portal.ParameterType.INTEGER,0,
     longDescription="CPU count on virtual worker nodes (0 disables)")
 pc.defineParameter(
-    "vworkerMemorySize","Memory size in MB of virtual worker node",
-    portal.ParameterType.INTEGER,8192,
+    "vworkerMemorySize","Memory size in GB of virtual worker node",
+    portal.ParameterType.INTEGER,8,
     longDescription="Memory size of virtual worker")
 
 pc.defineParameter(
@@ -74,8 +74,8 @@ pc.defineParameter(
     longDescription="CPU count on build node.",
     advanced=True)
 pc.defineParameter(
-    "buildMemorySize", "Memory size in MB of build host",
-    portal.ParameterType.INTEGER,6114,
+    "buildMemorySize", "Memory size in GB of build host",
+    portal.ParameterType.INTEGER,6,
     longDescription="Memory size of build node.",
     advanced=True)
 pc.defineParameter(
@@ -383,7 +383,7 @@ rspec.addResource(vhost)
 
 bhost = RSpec.XenVM("bhost")
 bhost.cores = params.buildCpuCount
-bhost.ram   = params.buildMemorySize
+bhost.ram   = params.buildMemorySize * 1024
 bhost.InstantiateOn('vhost-0')
 bhost.exclusive = True
 bhost.routable_control_ip = True            
@@ -411,7 +411,7 @@ for i in range(0, allNodesCount):
         vWorker = params.vworkerCpuCount and i == headNodeCount + dataNodeCount
         if vWorker:
             node.cores = params.vworkerCpuCount
-            node.ram = params.vworkerMemorySize
+            node.ram = params.vworkerMemorySize * 1024
         else:
             node.cores = 2
             node.ram   = 2048
