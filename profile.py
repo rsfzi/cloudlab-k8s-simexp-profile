@@ -48,14 +48,19 @@ pc.defineParameter(
     portal.ParameterType.NODETYPE,"",
     longDescription="A specific hardware type to use for each node.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
 
+pc.defineParameterGroup("vworker", "Virtual Worker Node")
 pc.defineParameter(
     "vworkerCpuCount","CPU count on virtual worker node",
     portal.ParameterType.INTEGER,0,
-    longDescription="CPU count on virtual worker nodes (0 disables)")
+    longDescription="CPU count on virtual worker nodes (0 disables)",
+    groupId="vworker"
+    )
 pc.defineParameter(
     "vworkerMemorySize","Memory size in GB of virtual worker node",
     portal.ParameterType.INTEGER,8,
-    longDescription="Memory size of virtual worker")
+    longDescription="Memory size of virtual worker",
+    groupId="vworker"
+)
 
 pc.defineParameter(
     "linkSpeed","Experiment Link Speed",
