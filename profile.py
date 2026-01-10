@@ -40,13 +40,23 @@ pc.defineParameter(
     portal.ParameterType.INTEGER,3,
     longDescription="Number of nodes in your kubernetes cluster.  Should be either 1, or >= 3.")
 pc.defineParameter(
-    "nodeType","Worker node hardware type",
-    portal.ParameterType.NODETYPE,"",
-    longDescription="A specific hardware type to use for each node.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
-pc.defineParameter(
     "vhostNodeType","vHost node hardware type",
     portal.ParameterType.NODETYPE,"",
     longDescription="A specific hardware type to use for vhosts.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
+pc.defineParameter(
+    "nodeType","Worker node hardware type",
+    portal.ParameterType.NODETYPE,"",
+    longDescription="A specific hardware type to use for each node.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
+
+pc.defineParameter(
+    "vworkerCpuCount","CPU count on virtual worker nodes",
+    portal.ParameterType.INTEGER,0,
+    longDescription="CPU count on virtual worker nodes (0 disables)")
+pc.defineParameter(
+    "vworkerMemorySize","Memory size in MB of virtual worker",
+    portal.ParameterType.INTEGER,8192,
+    longDescription="Memory size of virtual worker")
+
 pc.defineParameter(
     "linkSpeed","Experiment Link Speed",
     portal.ParameterType.INTEGER,0,
@@ -349,7 +359,8 @@ datalans = []
 
 headNodeCount = 1
 dataNodeCount = 1
-allNodesCount = headNodeCount + dataNodeCount + params.nodeCount
+vWorkerCount = 1 if params.vworkerCpuCount else 0
+allNodesCount = headNodeCount + dataNodeCount + params.nodeCount + vWorkerCount
 
 if allNodesCount > 1:
     datalan = RSpec.LAN("datalan-1")
@@ -397,13 +408,19 @@ for i in range(0, allNodesCount):
             node.hardware_type = params.nodeType
     else:
         node = RSpec.XenVM(nodename)
-        node.cores = 2
-        node.ram   = 2048
+        vWorker = params.vworkerCpuCount and i == headNodeCount + dataNodeCount
+        if vWorker:
+            node.cores = params.vworkerCpuCount
+            node.ram = params.vworkerMemorySize
+        else:
+            node.cores = 2
+            node.ram   = 2048
         node.InstantiateOn('vhost-0')
         node.exclusive = True
-        node.routable_control_ip = True            
-        bs = node.Blockstore("bs-%d" % i, "/storage")
-        bs.size = "8GB"
+        node.routable_control_ip = True
+        if not vWorker:
+            bs = node.Blockstore("bs-%d" % i, "/storage")
+            bs.size = "8GB"
     node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 
     for j, datalan in enumerate(datalans):
