@@ -62,14 +62,9 @@ pc.defineParameter(
     longDescription="Memory size of virtual worker",
     groupId="vworker",
     hide=True,
-)
+    )
 
-pc.defineParameter(
-    "linkSpeed","Experiment Link Speed",
-    portal.ParameterType.INTEGER,0,
-    [(0,"Any"),(1000000,"1Gb/s"),(10000000,"10Gb/s"),(25000000,"25Gb/s"),(40000000,"40Gb/s"),(100000000,"100Gb/s")],
-    longDescription="A specific link speed to use for each link/LAN.  All experiment network interfaces will request this speed.",
-    advanced=True)
+pc.defineParameterGroup("bhost", "Build Host")
 pc.defineParameter(
     "buildDiskImage", "Disk iamge of build host",
     portal.ParameterType.STRING,"urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV",
@@ -79,11 +74,22 @@ pc.defineParameter(
     "buildCpuCount", "CPU count on build host",
     portal.ParameterType.INTEGER,8,
     longDescription="CPU count on build node.",
-    advanced=True)
+    groupId="bhost",
+    hide=True,
+    )
 pc.defineParameter(
     "buildMemorySize", "Memory size in GB of build host",
     portal.ParameterType.INTEGER,6,
     longDescription="Memory size of build node.",
+    groupId="bhost",
+    hide=True,
+    )
+
+pc.defineParameter(
+    "linkSpeed","Experiment Link Speed",
+    portal.ParameterType.INTEGER,0,
+    [(0,"Any"),(1000000,"1Gb/s"),(10000000,"10Gb/s"),(25000000,"25Gb/s"),(40000000,"40Gb/s"),(100000000,"100Gb/s")],
+    longDescription="A specific link speed to use for each link/LAN.  All experiment network interfaces will request this speed.",
     advanced=True)
 pc.defineParameter(
     "multiplexLans", "Multiplex Networks",
