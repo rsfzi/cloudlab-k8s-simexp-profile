@@ -36,7 +36,7 @@ pc = portal.Context()
 # Define some parameters.
 #
 pc.defineParameter(
-    "nodeCount","Number of worker nodes",
+    "nodeCount","Number of physical worker nodes",
     portal.ParameterType.INTEGER,3,
     longDescription="Number of nodes in your kubernetes cluster.  Should be either 1, or >= 3.")
 pc.defineParameter(
@@ -49,11 +49,11 @@ pc.defineParameter(
     longDescription="A specific hardware type to use for each node.  Cloudlab clusters all have machines of specific types.  When you set this field to a value that is a specific hardware type, you will only be able to instantiate this profile on clusters with machines of that type.  If unset, when you instantiate the profile, the resulting experiment may have machines of any available type allocated.")
 
 pc.defineParameter(
-    "vworkerCpuCount","CPU count on virtual worker nodes",
+    "vworkerCpuCount","CPU count on virtual worker node",
     portal.ParameterType.INTEGER,0,
     longDescription="CPU count on virtual worker nodes (0 disables)")
 pc.defineParameter(
-    "vworkerMemorySize","Memory size in MB of virtual worker",
+    "vworkerMemorySize","Memory size in MB of virtual worker node",
     portal.ParameterType.INTEGER,8192,
     longDescription="Memory size of virtual worker")
 
