@@ -11,6 +11,22 @@ fi
 
 logtstart "kubespray"
 
+NODES_VAR=""
+# The last 2--N nodes are kube-node (now kube_node), unless there is only one node, or
+# if user allows.
+kubenodecount=2
+for node in `echo $NODES | cut -d ' ' -f${kubenodecount}-` ; do
+    if echo "$node" | grep -q "^vhost"; then
+        continue
+    fi	
+    NODES_VAR="$NODES_VAR $node"
+done
+
+echo "Wait for cluster nodes: $NODES_VAR"
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+"$SCRIPT_DIR/wait_nodes.sh" $NODES_VAR
+
+
 maybe_install_packages dma
 maybe_install_packages mailutils
 echo "$PFQDN" | $SUDO tee /etc/mailname
@@ -476,18 +492,6 @@ EOF
 	fi
     fi
 fi
-
-NODES_VAR=""
-for node in `echo $NODES | cut -d ' ' -f${kubenodecount}-` ; do
-    if echo "$node" | grep -q "^vhost"; then
-        continue
-    fi	
-    NODES_VAR="$NODES_VAR $node"
-done
-
-echo "Wait for cluster nodes: $NODES_VAR"
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-"$SCRIPT_DIR/wait_nodes.sh" $NODES_VAR
 
 export ANSIBLE_LOG_PATH=/local/logs/ansible.log
 
