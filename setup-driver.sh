@@ -9,7 +9,7 @@ ALLNODESCRIPTS="setup-ssh.sh setup-disk-space.sh setup-custom_os.sh"
 VHOSTSCRIPTS=""
 BHOSTSCRIPTS="setup-disk-space-build.sh setup-custom_os.sh setup-development.sh"
 HEADNODESCRIPTS="setup-nfs-server.sh setup-nginx.sh setup-ssl.sh setup-kubespray.sh setup-kubernetes-extra.sh setup-kubernetes-custom.sh setup-image-registry.sh setup-end.sh"
-WORKERNODESCRIPTS="setup-nfs-client.sh"
+WORKERNODESCRIPTS="setup-nfs-client.sh setup-kubernetes-custom-worker.sh"
 
 export SRC=`dirname $0`
 cd $SRC
