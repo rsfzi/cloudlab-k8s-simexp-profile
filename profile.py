@@ -86,6 +86,13 @@ pc.defineParameter(
     groupId="bhost",
     hide=True,
     )
+pc.defineParameter(
+    "buildStorageDiskSize", "Storage disk size in GB of build host",
+    portal.ParameterType.INTEGER,35,
+    longDescription="Storage disk size in GB of build host.",
+    groupId="bhost",
+    hide=True,
+    )
 
 pc.defineParameter(
     "linkSpeed","Experiment Link Speed",
@@ -403,7 +410,7 @@ bhost.InstantiateOn('vhost-0')
 bhost.exclusive = True
 bhost.routable_control_ip = True            
 bs = bhost.Blockstore("bs-build")
-bs.size = "25GB"
+bs.size = "%dGB" % params.buildStorageDiskSize
 bhost.disk_image = params.buildDiskImage
 if TBCMD is not None:
     bhost.addService(RSpec.Execute(shell="sh",command=TBCMD))
