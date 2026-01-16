@@ -95,9 +95,9 @@ pc.defineParameter(
     )
 
 pc.defineParameter(
-    "controlPlaneMemorySize", "Memory size in GB of control plane",
+    "vmNodeMemorySize", "Memory size in GB of VM nodes",
     portal.ParameterType.INTEGER,2,
-    longDescription="Memory size of control plane.",
+    longDescription="Memory size of VM nodes.",
     advanced=True)
 pc.defineParameter(
     "controlPlaneCpuCount", "CPU count on control plane",
@@ -448,10 +448,9 @@ for i in range(0, allNodesCount):
         else:
             if i == 0:
                 node.cores = params.controlPlaneCpuCount
-                node.ram = params.controlPlaneMemorySize * 1024
             else:
                 node.cores = 2
-                node.ram = 2048
+            node.ram = params.vmNodeMemorySize * 1024
         node.InstantiateOn('vhost-0')
         node.exclusive = True
         node.routable_control_ip = True
