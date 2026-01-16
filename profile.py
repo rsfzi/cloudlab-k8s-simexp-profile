@@ -95,6 +95,11 @@ pc.defineParameter(
     )
 
 pc.defineParameter(
+    "controlPlaneMemorySize", "Memory size in GB of control plane",
+    portal.ParameterType.INTEGER,2,
+    longDescription="Memory size of control plane.",
+    advanced=True)
+pc.defineParameter(
     "linkSpeed","Experiment Link Speed",
     portal.ParameterType.INTEGER,0,
     [(0,"Any"),(1000000,"1Gb/s"),(10000000,"10Gb/s"),(25000000,"25Gb/s"),(40000000,"40Gb/s"),(100000000,"100Gb/s")],
@@ -436,7 +441,10 @@ for i in range(0, allNodesCount):
             node.ram = params.vworkerMemorySize * 1024
         else:
             node.cores = 2
-            node.ram   = 2048
+            if i == 0:
+                node.ram = params.controlPlaneMemorySize * 1024
+            else:
+                node.ram = 2048
         node.InstantiateOn('vhost-0')
         node.exclusive = True
         node.routable_control_ip = True
