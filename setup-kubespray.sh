@@ -31,8 +31,8 @@ maybe_install_packages dma
 maybe_install_packages mailutils
 echo "$PFQDN" | $SUDO tee /etc/mailname
 sleep 2
-echo "Your ${EXPTTYPE} instance is setting up on $NFQDN ." \
-    |  mail -s "${EXPTTYPE} Instance Setting Up" ${SWAPPER_EMAIL} &
+#echo "Your ${EXPTTYPE} instance is setting up on $NFQDN ." \
+#    |  mail -s "${EXPTTYPE} Instance Setting Up" ${SWAPPER_EMAIL} &
 
 # First, we need yq.
 if [ ! $YQFROMPKG -eq 0 ]; then
