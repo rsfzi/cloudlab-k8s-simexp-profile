@@ -104,7 +104,6 @@ pc.defineParameter(
     portal.ParameterType.INTEGER,2,
     longDescription="CPU count on control plane.",
     advanced=True)
-    )
 pc.defineParameter(
     "linkSpeed","Experiment Link Speed",
     portal.ParameterType.INTEGER,0,
