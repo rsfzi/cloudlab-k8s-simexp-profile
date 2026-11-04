@@ -67,7 +67,8 @@ pc.defineParameter(
 pc.defineParameterGroup("bhost", "Build Host")
 pc.defineParameter(
     "buildDiskImage", "Disk iamge of build host",
-    portal.ParameterType.STRING,"urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV",
+    #portal.ParameterType.STRING,"urn:publicid:IDN+emulab.net+image+SimExpEAOptimize:UBUNTU22-64-DEV",
+    portal.ParameterType.STRING,"urn:publicid:IDN+utah.cloudlab.us+image+simexpeaoptimize-PG0:UBUNTU22-64-DEV2",
     longDescription="Disk image of the build node.",
     groupId="bhost",
     hide=True,
