@@ -17,7 +17,7 @@ git clone $BRANCH git@github.com:PalladioSimulator/Palladio-Analyzer-SimExp
 cd $HOME/develop/kubernetes
 git clone $BRANCH git@github.com:rsfzi/Simexp-Kubernetes-Worker.git
 
-BRANCH=""
+#BRANCH=""
 cd $HOME/develop/palladio/simexp-ea
 git clone $BRANCH git@github.com:PalladioSimulator/Palladio-Addons-EnvironmentalDynamics
 
