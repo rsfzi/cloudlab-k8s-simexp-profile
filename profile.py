@@ -82,7 +82,7 @@ pc.defineParameter(
     )
 pc.defineParameter(
     "buildMemorySize", "Memory size in GB of build host",
-    portal.ParameterType.INTEGER,6,
+    portal.ParameterType.INTEGER,12,
     longDescription="Memory size of build node.",
     groupId="bhost",
     hide=True,
